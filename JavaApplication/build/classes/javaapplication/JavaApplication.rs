@@ -1,3 +1,0 @@
-javaapplication.MonFrame$1
-javaapplication.MonFrame$2
-javaapplication.MonFrame
