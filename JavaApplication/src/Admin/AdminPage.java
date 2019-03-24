@@ -53,7 +53,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\icons8-businessman-96.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-businessman-96.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("ADMIN DASHBOARD");
@@ -78,7 +78,7 @@ public class AdminPage extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\icons8-name-tag-100.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-name-tag-100.png"))); // NOI18N
         jLabel3.setText("Employee");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -108,7 +108,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("Statistics");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\icons8-statistics-100.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-statistics-100.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -135,7 +135,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\icons8-user-folder-100.png")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-user-folder-100.png"))); // NOI18N
         jLabel9.setText("Users");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -156,7 +156,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\icons8-export-100.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-export-100.png"))); // NOI18N
         jLabel7.setText("Sign out");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -283,7 +283,6 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }

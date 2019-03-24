@@ -130,7 +130,7 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Ouss\Desktop\icons8-businessman-96.png"/>
+                  <Image iconType="3" name="/Admin/icons8-businessman-96.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -175,7 +175,7 @@
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Ouss\Desktop\icons8-name-tag-100.png"/>
+                  <Image iconType="3" name="/Admin/icons8-name-tag-100.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Employee"/>
               </Properties>
@@ -234,7 +234,7 @@
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Ouss\Desktop\icons8-statistics-100.png"/>
+                  <Image iconType="3" name="/Admin/icons8-statistics-100.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -269,7 +269,7 @@
                   <Font name="Tahoma" size="24" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Ouss\Desktop\icons8-user-folder-100.png"/>
+                  <Image iconType="3" name="/Admin/icons8-user-folder-100.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Users"/>
               </Properties>
@@ -304,7 +304,7 @@
                   <Font name="Tahoma" size="24" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Ouss\Desktop\icons8-export-100.png"/>
+                  <Image iconType="3" name="/Admin/icons8-export-100.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sign out"/>
               </Properties>
