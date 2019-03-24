@@ -173,7 +173,7 @@ public class login extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
-                String sql = "select * from user where name=? and passwd=?";
+                String sql = "select * from user where id_user =? and passwd=?";
                 PreparedStatement stmt = con.prepareStatement(sql);
 
                 stmt.setString(1, name.getText());
