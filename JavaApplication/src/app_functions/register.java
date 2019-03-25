@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -193,36 +195,45 @@ public class register extends javax.swing.JFrame {
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
                 String sql = "insert into user values(?,?,?,?,?,?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
-                
-                String number = phone.getText();
-                int result = Integer.parseInt(number);			
-
                     stmt.setString(1,username.getText());
                     stmt.setString(4, last_name.getText());
                     stmt.setString(2, password.getText());
                     stmt.setString(5, address.getText());
+                    String number = phone.getText();
+                    int result = Integer.parseInt(number);			
                     stmt.setInt(6, result);
                     stmt.setString(3, name.getText());
                 
-                int i= stmt.executeUpdate();
-
-                if (i==0) {
-                    JOptionPane.showMessageDialog(null, "Registration Failed");
-                   
-                } else {
-                    JOptionPane.showMessageDialog(null, "Registration Succeeded");
+                String sq2 = "Select * from user where id_user="+username.getText();                
+                Statement stat = con.createStatement();
+                ResultSet res=stat.executeQuery(sq2);
+                
                     
+              
+                boolean b=res.next();
+                if(b)
+                    JOptionPane.showMessageDialog(null, "username already exists");
+                else{
+                    int v= stmt.executeUpdate();
+
+                    if (v==0) {
+                        JOptionPane.showMessageDialog(null, "Registration Failed");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Registration Succeeded");
+                        login log = new login();
+                        log.setVisible(true);
+                        setVisible(false);
+
+                       name.setText("");
+                       password.setText("");
+                       last_name.setText("");
+                       address.setText("");
+                       phone.setText("");
+                    }
                 }
                 
-                     login log = new login();
-                     log.setVisible(true);
-                     setVisible(false);
                      
-                    name.setText("");
-                    password.setText("");
-                    last_name.setText("");
-                    address.setText("");
-                    phone.setText("");
 
             }
 
