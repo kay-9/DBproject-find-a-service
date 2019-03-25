@@ -5,7 +5,6 @@
  */
 package app_functions;
 
-import User.UserMain;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -180,8 +179,7 @@ public class login extends javax.swing.JFrame {
 
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(null, "username and password existe");
-                    UserMain UMain = new UserMain();
-                    UMain.setVisible(true);
+                    
                     setVisible(false);
 
                 } else {
