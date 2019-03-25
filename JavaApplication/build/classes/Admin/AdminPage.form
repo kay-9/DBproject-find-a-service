@@ -154,11 +154,7 @@
                       <Component id="jLabel3" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <EmptySpace max="32767" attributes="0"/>
-=======
-                      <EmptySpace pref="81" max="32767" attributes="0"/>
->>>>>>> 80b91e62c4fcce17ab80709f913a6a44f848bce4
                   </Group>
               </Group>
             </DimensionLayout>
@@ -183,23 +179,16 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Employee"/>
               </Properties>
-<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
               </Events>
-=======
->>>>>>> 80b91e62c4fcce17ab80709f913a6a44f848bce4
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="24" style="1"/>
                 </Property>
-<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Employees Section"/>
-=======
-                <Property name="text" type="java.lang.String" value="Employee"/>
->>>>>>> 80b91e62c4fcce17ab80709f913a6a44f848bce4
               </Properties>
             </Component>
           </SubComponents>
