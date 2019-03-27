@@ -374,7 +374,7 @@ public class EmployeesFNs extends javax.swing.JFrame {
             
                  
                 String p = prix.getText();
-                int resp = Integer.parseInt(p);
+                float resp = Float.parseFloat(p);
                 
                 String ide = id.getText();
                 int rid = Integer.parseInt(ide);
@@ -385,7 +385,7 @@ public class EmployeesFNs extends javax.swing.JFrame {
                 stmt.setString(3, last_name.getText());
                 stmt.setInt(5, res);
                 stmt.setString(6, service.getText());
-                stmt.setInt(7, resp);
+                stmt.setFloat(7, resp);
         
                 
            

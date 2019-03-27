@@ -36,7 +36,7 @@ public class UserFNs extends javax.swing.JFrame {
                 String sql = "delete from employee where id_employee=?";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 
-                    String number = epmD.getText();
+                    String number = searchBar.getText();
                     int result = Integer.parseInt(number);			
                     stmt.setInt(1, result);
 
@@ -59,42 +59,42 @@ public class UserFNs extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
            
-                
-                
-                String sql = "Select * from user where ?=?";
+                     String sql = String.format("Select * from user where %s= ?", crit);
+               
                 PreparedStatement stmt = con.prepareStatement(sql);
               
-                stmt.setString(1,crit);
-
-                if(crit=="phone"){
+               // stmt.setString(1,crit);
+                if("phone".equals(crit)){
+                
                      String number = bar.getText();
                      int res = Integer.parseInt(number);
-                     stmt.setInt(2,res);
+
+                     stmt.setInt(1,res);
                 }
                 else
                     {
                        
-                        stmt.setString(2,bar.getText());
+                        stmt.setString(1,bar.getText());
                     }
-                
-                 
+                  System.out.println(sql);
                 ResultSet rs = stmt.executeQuery();
-                
-                System.out.println( rs.next());
+
                                
-                DefaultTableModel model = (DefaultTableModel) tt.getModel();
+                DefaultTableModel model = (DefaultTableModel) ll.getModel();
                 model.setRowCount(0); // empty the java table
-                            
+
                       while(rs.next()){
+                          
+                              System.out.println("j");
                         String id   = rs.getString("id_user");
                         String nm   = rs.getString("name");
                         String lt   = rs.getString("lastname");
                         String ad   = rs.getString("address");
                         String ps   = rs.getString("passwd");
                         int   ph    = rs.getInt("phone");
-                        
+                          
+
                         Object [] data = {id,nm,lt,ad,ph,ps};
-                        
 
                           model.addRow(data);
     
@@ -122,7 +122,7 @@ public class UserFNs extends javax.swing.JFrame {
 
                 ResultSet rs = stmt.executeQuery();
                 
-                         DefaultTableModel model = (DefaultTableModel) tt.getModel();
+                         DefaultTableModel model = (DefaultTableModel) ll.getModel();
                             model.setRowCount(0); // empty the java table
                             
                while(rs.next()){
@@ -158,7 +158,7 @@ public class UserFNs extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tt = new javax.swing.JTable();
+        ll = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         showall = new javax.swing.JButton();
@@ -178,7 +178,7 @@ public class UserFNs extends javax.swing.JFrame {
             }
         });
 
-        tt.setModel(new javax.swing.table.DefaultTableModel(
+        ll.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -186,12 +186,12 @@ public class UserFNs extends javax.swing.JFrame {
                 "Usermabe", "name ", "Last name", "Address", "Phone", "Password"
             }
         ));
-        tt.addMouseListener(new java.awt.event.MouseAdapter() {
+        ll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ttMouseClicked(evt);
+                llMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tt);
+        jScrollPane1.setViewportView(ll);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Delete a User");
@@ -312,9 +312,9 @@ public class UserFNs extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ttMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ttMouseClicked
+    private void llMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llMouseClicked
  
-    }//GEN-LAST:event_ttMouseClicked
+    }//GEN-LAST:event_llMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
                       // TODO add your handling code here:
@@ -406,9 +406,9 @@ public class UserFNs extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable ll;
     private javax.swing.JButton search;
     private java.awt.TextField searchBar;
     private javax.swing.JButton showall;
-    private javax.swing.JTable tt;
     // End of variables declaration//GEN-END:variables
 }

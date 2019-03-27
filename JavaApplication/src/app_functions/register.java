@@ -205,20 +205,27 @@ public class register extends javax.swing.JFrame {
                     stmt.setInt(6, result);
                     stmt.setString(3, name.getText());
                 
-                String sq2 = "Select * from user where id_user="+username.getText();                
-                Statement stat = con.createStatement();
-                ResultSet res=stat.executeQuery(sq2);
+                
+                    
+                    String sq2 = "Select * from user where id_user=?";  
+                    PreparedStatement stmt2=con.prepareStatement(sq2);
+                    stmt2.setString(1,username.getText());
+                    
+                     ResultSet res = stmt2.executeQuery();
+                   
+                
+                
                 
                     
               
                 boolean b=res.next();
                 if(b)
-                    JOptionPane.showMessageDialog(null, "username already exists");
+                    JOptionPane.showMessageDialog(null,    "username already exists");
                 else{
-                    int v= stmt.executeUpdate();
-
+                    int v = stmt.executeUpdate();
+                    
                     if (v==0) {
-                        JOptionPane.showMessageDialog(null, "Registration Failed");
+                        JOptionPane.showMessageDialog(null,  "Registration Failed");
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Registration Succeeded");
