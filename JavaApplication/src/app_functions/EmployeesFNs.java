@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import static java.time.Clock.system;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ouss
  */
+
+
 public class EmployeesFNs extends javax.swing.JFrame {
 
     /**
@@ -26,6 +27,68 @@ public class EmployeesFNs extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void delete(){
+        
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
+                String sql = "delete from employee where id_employee=?";
+                PreparedStatement stmt = con.prepareStatement(sql);
+                
+                    String number = epmD.getText();
+                    int result = Integer.parseInt(number);			
+                    stmt.setInt(1, result);
+
+                 stmt.executeUpdate();
+                
+ 
+            }     
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }   
+    }
+    
+    public void display(){
+            
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
+                String sql = "select * from employee";
+                PreparedStatement stmt = con.prepareStatement(sql);
+
+                                  
+
+                ResultSet rs = stmt.executeQuery();
+                
+                         DefaultTableModel model = (DefaultTableModel) tt.getModel();
+                            model.setRowCount(0); // empty the java table
+                            
+               while(rs.next()){
+                        String id   = rs.getString("id_employee");
+                        String nm   = rs.getString("name");
+                        String lt   = rs.getString("lastname");
+                        String ad   = rs.getString("address");
+                        String sr   = rs.getString("service");
+                        float srp   = rs.getFloat("serviceprice");
+                        int   ph    = rs.getInt("phone");
+                        
+                        Object [] data = {id,nm,lt,ad,ph,sr,srp};
+                        
+
+                          model.addRow(data);
+    
+               }
+            
+            }     
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }   
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,9 +100,13 @@ public class EmployeesFNs extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        empTable = new javax.swing.JTable();
+        tt = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        epmD = new javax.swing.JTextField();
+        delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,23 +117,39 @@ public class EmployeesFNs extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        empTable.setModel(new javax.swing.table.DefaultTableModel(
+        tt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Username", "Name", "Last name", "Password", "Address", "Phone"
+                "ID", "name ", "Last name", "Address", "Phone", "service", "Prix service"
             }
         ));
-        empTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        tt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                empTableMouseClicked(evt);
+                ttMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(empTable);
+        jScrollPane1.setViewportView(tt);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("List Of all Employees");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setText("ID Employee : ");
+
+        epmD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                epmDActionPerformed(evt);
+            }
+        });
+
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,13 +157,21 @@ public class EmployeesFNs extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+                    .addComponent(jSeparator3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(epmD, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(621, Short.MAX_VALUE))
+                .addContainerGap(505, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,56 +181,46 @@ public class EmployeesFNs extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(epmD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void empTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_empTableMouseClicked
+    private void ttMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ttMouseClicked
  
-    }//GEN-LAST:event_empTableMouseClicked
+    }//GEN-LAST:event_ttMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
-                String sql = "select * from user";
-                PreparedStatement stmt = con.prepareStatement(sql);
-
-                                  
-
-                ResultSet rs = stmt.executeQuery();
-                
- 
-               while(rs.next()){
-                        String id    = rs.getString("id_user");
-                        String ps   = rs.getString("passwd");
-                        String nm     = rs.getString("name");
-                        String lt = rs.getString("lastname");
-                        String ad  = rs.getString("address");
-                        int  ph    = rs.getInt("phone");
-                        
-                        Object [] data = {id,nm,lt,ps,ad,ph};
-                        
-                        DefaultTableModel model = (DefaultTableModel) empTable.getModel();
-
-                          model.addRow(data);
-                        
-
-                   
-                   
-               }
-            
-            }     
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }        // TODO add your handling code here:
+                      // TODO add your handling code here:
+                      
+            this.display();  
+        
+              // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+            // TODO add your handling code here:
+            
+            this.delete();
+            this.display();  
+        
+                 
+                 
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void epmDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epmDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_epmDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,10 +261,14 @@ public class EmployeesFNs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable empTable;
+    private javax.swing.JButton delete;
+    private javax.swing.JTextField epmD;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTable tt;
     // End of variables declaration//GEN-END:variables
 }
