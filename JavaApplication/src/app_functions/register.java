@@ -193,9 +193,10 @@ public class register extends javax.swing.JFrame {
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
+             
                 String sql = "insert into user values(?,?,?,?,?,?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
-                    stmt.setString(1,username.getText());
+                    stmt.setString(1, username.getText());
                     stmt.setString(4, last_name.getText());
                     stmt.setString(2, password.getText());
                     stmt.setString(5, address.getText());
