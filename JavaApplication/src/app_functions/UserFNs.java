@@ -33,12 +33,10 @@ public class UserFNs extends javax.swing.JFrame {
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
-                String sql = "delete from employee where id_employee=?";
+                String sql = "delete from user where id_user=?";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 
-                    String number = searchBar.getText();
-                    int result = Integer.parseInt(number);			
-                    stmt.setInt(1, result);
+                    stmt.setString(1,dbar.getText());
 
                  stmt.executeUpdate();
                 
@@ -164,7 +162,7 @@ public class UserFNs extends javax.swing.JFrame {
         showall = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         box = new javax.swing.JComboBox<>();
-        searchBar = new java.awt.TextField();
+        dbar = new java.awt.TextField();
         delete = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
@@ -213,9 +211,9 @@ public class UserFNs extends javax.swing.JFrame {
             }
         });
 
-        searchBar.addActionListener(new java.awt.event.ActionListener() {
+        dbar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBarActionPerformed(evt);
+                dbarActionPerformed(evt);
             }
         });
 
@@ -260,8 +258,8 @@ public class UserFNs extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(68, 68, 68)
-                                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(65, 65, 65)
+                                .addComponent(dbar, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -272,7 +270,7 @@ public class UserFNs extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
                                 .addComponent(box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
+                                .addGap(40, 40, 40)
                                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -299,7 +297,7 @@ public class UserFNs extends javax.swing.JFrame {
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
@@ -334,12 +332,13 @@ public class UserFNs extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_boxActionPerformed
 
-    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
+    private void dbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBarActionPerformed
+    }//GEN-LAST:event_dbarActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
+        this.delete();
     }//GEN-LAST:event_deleteActionPerformed
 
     private void barActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barActionPerformed
@@ -399,6 +398,7 @@ public class UserFNs extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.TextField bar;
     private javax.swing.JComboBox<String> box;
+    private java.awt.TextField dbar;
     private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -408,7 +408,6 @@ public class UserFNs extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable ll;
     private javax.swing.JButton search;
-    private java.awt.TextField searchBar;
     private javax.swing.JButton showall;
     // End of variables declaration//GEN-END:variables
 }

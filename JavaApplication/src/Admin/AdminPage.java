@@ -8,6 +8,7 @@
 package Admin;
 
 import app_functions.EmployeesFNs;
+import app_functions.UserFNs;
 /**
  *
  * @author Ouss
@@ -145,6 +146,11 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-user-folder-100.png"))); // NOI18N
         jLabel9.setText("Users");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -245,6 +251,13 @@ public class AdminPage extends javax.swing.JFrame {
                     Emp.setVisible(true);
                     setVisible(false);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        UserFNs user_interface = new UserFNs();
+        user_interface.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
