@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author 10
+ * @author 
  */
 public class GeneralStatistics extends javax.swing.JFrame {
 
@@ -107,26 +107,6 @@ public class GeneralStatistics extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-                
-                    
-              
-        
-        /*jTextField1.disable();
-        jTextField2.disable();
-        jTextField3.disable();
-        jTextField4.disable();
-        jTextField4.disable();
-        jTextField5.disable();
-        jTextField6.disable();
-        jTextField7.disable();
-        jTextField8.disable();
-        jTextField9.disable();
-        jTextField10.disable();
-        jTextField11.disable();
-        jTextField12.disable();
-        jTextField13.disable();
-        jTextField14.disable();
-        jTextField15.disable();*/
        
     }
 

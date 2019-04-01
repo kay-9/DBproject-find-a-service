@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author 10
+ * @author 
  */
 public class FindService extends javax.swing.JFrame {
     String username="";
@@ -30,7 +30,7 @@ public class FindService extends javax.swing.JFrame {
             jButton2.disable();
             jButton4.disable();
             jTextArea1.disable();
-        jLabel20.setText("Hello MR "+ch+" apply for service here");
+            jLabel20.setText("Hello MR "+ch+" apply for service here");
        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
@@ -329,15 +329,6 @@ public class FindService extends javax.swing.JFrame {
             jTextArea1.setText("user " +username+" apply for for service : "+ser+"\nhe choose Employee with id="+idE+"\nthe price of service= "+pc);
             jButton4.enable();
            
-           /* String sql = "insert contract values(?,?,?,?,?,?)";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                    stmt.setString(1,Integer.toString(num) );
-                    stmt.setString(2, jTextField1.getText()+"-"+jTextField2.getText()+"-"+jTextField3.getText());
-                    stmt.setString(3, username);
-                    stmt.setString(4, idE);
-                    stmt.setString(5, pc);
-                    stmt.setString(5, jTextArea1.getText() );*/
-                
             }
 
         } catch (Exception e) {
@@ -359,8 +350,9 @@ public class FindService extends javax.swing.JFrame {
                 if(res.next()){
                     num = 1+Integer.parseInt(res.getString("max(idc)"));
                 }
-                System.out.println(num);
-            String sql = "insert contract values(?,?,?,?,?,?)";
+               // System.out.println(num);
+                
+               String sql = "insert contract values(?,?,?,?,?,?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
                     stmt.setString(1,Integer.toString(num) );
                     stmt.setString(2, jTextField1.getText()+"-"+jTextField2.getText()+"-"+jTextField3.getText());
@@ -368,11 +360,9 @@ public class FindService extends javax.swing.JFrame {
                     stmt.setString(4, idE);
                     stmt.setString(5, pc);
                     stmt.setString(6, jTextArea1.getText() );
-                int v = stmt.executeUpdate();
-                    
+                int v = stmt.executeUpdate();                    
                     if (v==0) {
                         JOptionPane.showMessageDialog(null,  "Failed");
-
                     } else {
                         JOptionPane.showMessageDialog(null, "confirmed");}
             }

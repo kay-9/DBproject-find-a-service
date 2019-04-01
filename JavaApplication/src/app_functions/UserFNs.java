@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Ouss
+ * @author 
  */
 
 
@@ -34,13 +34,9 @@ public class UserFNs extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
                 String sql = "delete from user where id_user=?";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                
-                    stmt.setString(1,dbar.getText());
-
-                 stmt.executeUpdate();
-                
- 
+                PreparedStatement stmt = con.prepareStatement(sql);                
+                stmt.setString(1,dbar.getText());
+                stmt.executeUpdate();               
             }     
 
         } catch (Exception e) {
@@ -51,39 +47,31 @@ public class UserFNs extends javax.swing.JFrame {
     
     public void search(){
         
-          String crit=(String) box.getSelectedItem(); 
-          
+          String crit=(String) box.getSelectedItem();           
           try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
            
-                     String sql = String.format("Select * from user where %s= ?", crit);
-               
-                PreparedStatement stmt = con.prepareStatement(sql);
-              
+                String sql = String.format("Select * from user where %s= ?", crit);               
+                PreparedStatement stmt = con.prepareStatement(sql);              
                // stmt.setString(1,crit);
-                if("phone".equals(crit)){
-                
+                if("phone".equals(crit)){                
                      String number = bar.getText();
                      int res = Integer.parseInt(number);
-
                      stmt.setInt(1,res);
                 }
-                else
-                    {
-                       
+                else{                       
                         stmt.setString(1,bar.getText());
                     }
-                  System.out.println(sql);
+                //System.out.println(sql);
                 ResultSet rs = stmt.executeQuery();
 
                                
                 DefaultTableModel model = (DefaultTableModel) ll.getModel();
                 model.setRowCount(0); // empty the java table
 
-                      while(rs.next()){
-                          
-                              System.out.println("j");
+                      while(rs.next()){                          
+                  //            System.out.println("j");
                         String id   = rs.getString("id_user");
                         String nm   = rs.getString("name");
                         String lt   = rs.getString("lastname");
@@ -91,16 +79,9 @@ public class UserFNs extends javax.swing.JFrame {
                         String ps   = rs.getString("passwd");
                         int   ph    = rs.getInt("phone");
                           
-
                         Object [] data = {id,nm,lt,ad,ph,ps};
-
-                          model.addRow(data);
-    
-               }
-            
-                
-                
-                
+                        model.addRow(data);
+               }                                                     
             }
 
         } catch (Exception e) {
@@ -131,15 +112,10 @@ public class UserFNs extends javax.swing.JFrame {
                         String ps   = rs.getString("passwd");
                         int   ph    = rs.getInt("phone");
                         
-                        Object [] data = {id,nm,lt,ad,ph,ps};
-                        
-
-                          model.addRow(data);
-    
-               }
-            
-            }     
-
+                        Object [] data = {id,nm,lt,ad,ph,ps};                       
+                        model.addRow(data);    
+               }            
+            }    
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }   
@@ -317,9 +293,6 @@ public class UserFNs extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
                       // TODO add your handling code here:
                       
-           
-        
-              // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
     private void showallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showallActionPerformed

@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author 10
+ * @author 
  */
 public class StatisticsOfService extends javax.swing.JFrame {
 
@@ -103,10 +103,7 @@ public class StatisticsOfService extends javax.swing.JFrame {
                 PreparedStatement stmt = con.prepareStatement(sql);  
                 stmt.setString(1,ser);
                 ResultSet rs = stmt.executeQuery();
-                
-                
-                
-                            
+                       
                while(rs.next()){
                         String id   = rs.getString("id_employee");
                         String nm   = rs.getString("name");

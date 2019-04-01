@@ -11,7 +11,7 @@ import app_functions.EmployeesFNs;
 import app_functions.UserFNs;
 /**
  *
- * @author Ouss
+ * @author 
  */
 public class AdminPage extends javax.swing.JFrame {
 
@@ -291,8 +291,6 @@ public class AdminPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
               new AdminPage().setVisible(true);
-              
-
             }
         });
     }

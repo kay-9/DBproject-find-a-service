@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Ouss
+ * @author 
  */
 public class register extends javax.swing.JFrame {
 
@@ -203,30 +203,20 @@ public class register extends javax.swing.JFrame {
                     String number = phone.getText();
                     int result = Integer.parseInt(number);			
                     stmt.setInt(6, result);
-                    stmt.setString(3, name.getText());
-                
-                
+                    stmt.setString(3, name.getText());                                
                     
                     String sq2 = "Select * from user where id_user=?";  
                     PreparedStatement stmt2=con.prepareStatement(sq2);
-                    stmt2.setString(1,username.getText());
-                    
-                     ResultSet res = stmt2.executeQuery();
-                   
-                
-                
-                
-                    
+                    stmt2.setString(1,username.getText());                    
+                    ResultSet res = stmt2.executeQuery(); 
               
                 boolean b=res.next();
                 if(b)
                     JOptionPane.showMessageDialog(null,    "username already exists");
                 else{
                     int v = stmt.executeUpdate();
-                    
                     if (v==0) {
                         JOptionPane.showMessageDialog(null,  "Registration Failed");
-
                     } else {
                         JOptionPane.showMessageDialog(null, "Registration Succeeded");
                         login log = new login();
@@ -240,9 +230,6 @@ public class register extends javax.swing.JFrame {
                        phone.setText("");
                     }
                 }
-                
-                     
-
             }
 
         } catch (Exception e) {

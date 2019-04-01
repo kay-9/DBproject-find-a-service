@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Ouss
+ * @author 
  */
 
 
@@ -39,9 +39,7 @@ public class EmployeesFNs extends javax.swing.JFrame {
                     String number = epmD.getText();
                     int result = Integer.parseInt(number);			
                     stmt.setInt(1, result);
-
-                 stmt.executeUpdate();
-                
+                    stmt.executeUpdate();               
  
             }     
 
@@ -57,14 +55,11 @@ public class EmployeesFNs extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
                 String sql = "select * from employee";
-                PreparedStatement stmt = con.prepareStatement(sql);
-
-                                  
-
+                PreparedStatement stmt = con.prepareStatement(sql);                                
                 ResultSet rs = stmt.executeQuery();
                 
                          DefaultTableModel model = (DefaultTableModel) tt.getModel();
-                            model.setRowCount(0); // empty the java table
+                         model.setRowCount(0); // empty the java table
                             
                while(rs.next()){
                         String id   = rs.getString("id_employee");
@@ -75,15 +70,10 @@ public class EmployeesFNs extends javax.swing.JFrame {
                         float srp   = rs.getFloat("serviceprice");
                         int   ph    = rs.getInt("phone");
                         
-                        Object [] data = {id,nm,lt,ad,ph,sr,srp};
-                        
-
-                          model.addRow(data);
-    
+                        Object [] data = {id,nm,lt,ad,ph,sr,srp};                      
+                        model.addRow(data);
                }
-            
             }     
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }   
@@ -348,10 +338,8 @@ public class EmployeesFNs extends javax.swing.JFrame {
             // TODO add your handling code here:
             
             this.delete();
-            this.display();  
-        
-                 
-                 
+            this.display();         
+                                  
     }//GEN-LAST:event_deleteActionPerformed
 
     private void epmDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epmDActionPerformed
@@ -365,17 +353,11 @@ public class EmployeesFNs extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
                 String sql = "insert into employee values(?,?,?,?,?,?,?)";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                
-               
-                 
+                PreparedStatement stmt = con.prepareStatement(sql);                                                
                 String number = phone.getText();
-                int res = Integer.parseInt(number);
-            
-                 
+                int res = Integer.parseInt(number);                             
                 String p = prix.getText();
-                float resp = Float.parseFloat(p);
-                
+                float resp = Float.parseFloat(p);                
                 String ide = id.getText();
                 int rid = Integer.parseInt(ide);
                 
