@@ -85,7 +85,6 @@ public class register extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ouss\\Desktop\\Icon_Disk_256x256.png")); // NOI18N
         jLabel6.setText("jLabel6");
 
         jLabel7.setText("Username :");

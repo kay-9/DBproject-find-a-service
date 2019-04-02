@@ -243,6 +243,13 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
        String passwd ;
        passwd= JOptionPane.showInputDialog("passwod");
+                   System.out.println(passwd);
+
+                   
+       if(passwd.equals("admin")){
+    
+            System.out.println("welcome");
+    }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
