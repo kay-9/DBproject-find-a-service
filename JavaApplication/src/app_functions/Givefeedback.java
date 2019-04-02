@@ -91,7 +91,7 @@ public class Givefeedback extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/stat1.png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app_functions/feedback.png"))); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel20.setText("Give a feedback");

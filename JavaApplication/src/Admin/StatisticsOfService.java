@@ -20,13 +20,21 @@ import javax.swing.table.DefaultTableModel;
  * @author 
  */
 public class StatisticsOfService extends javax.swing.JFrame {
-
+    String sr="";
+    String dt="";
     /**
      * Creates new form StatisticsOfService
      */
-    public StatisticsOfService(String ser) {
+    public StatisticsOfService(String ser,String y,String m) {
         initComponents();
-        jLabel20.setText(jLabel20.getText()+ser);
+        sr=ser;
+        dt="";
+        if(!y.equals(""))dt=y+"-"+m;
+        dt+="%";
+        String af=jLabel20.getText()+ser;
+        if(!y.equals(""))af+=" in "+y;
+        if(!m.equals(""))af+=" - "+m;
+        jLabel20.setText(af);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
@@ -40,40 +48,45 @@ public class StatisticsOfService extends javax.swing.JFrame {
                 if(res.next())
                     jTextField2.setText(res.getString("count(*)")+" Employees");
                 
-                String r3 = "Select count(*) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=?";      
+                String r3 = "Select count(*) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r3);
                 stmt2.setString(1,ser);
+                stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 if(res.next())
                     jTextField3.setText(res.getString("count(*)")+" Contracts");
                 
                
-                String r7 = "Select min(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=?";      
+                String r7 = "Select min(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r7);
                 stmt2.setString(1,ser);
+                stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 String t6="price from : ";
                 if(res.next())
                     t6+=res.getString("min(priceC)")+" to ";
-                String r6 = "Select max(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=?";      
+                String r6 = "Select max(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r6);
                 stmt2.setString(1,ser);
+                stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 if(res.next())
                     t6+=res.getString("max(priceC)");
                    jTextField6.setText(t6);
                 
-                String r12 = "Select sum(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=?";      
+                String r12 = "Select sum(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r12);
                 stmt2.setString(1,ser);
+                stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 if(res.next())
                     jTextField7.setText("Cost of all contract: "+res.getString("sum(priceC)")); 
                 
                 
-                String r8 = "create or replace view v1(moy,name,lastname) as select sum(o.stars)/count(*) ,e.name,e.lastname from opinion as o,contract as c,employee as e where o.idC=c.idc and c.id_employee=e.id_employee and e.service=? group by(c.id_employee)";                
+                String r8 = "create or replace view v1(moy,name,lastname) as select sum(o.stars)/count(*) ,e.name,e.lastname from opinion as o,contract as c,employee as e where o.idC=c.idc and c.id_employee=e.id_employee and e.service=? and c.date like ? group by(c.id_employee)";                
                 PreparedStatement stmt8 = con.prepareStatement(r8);  
                 stmt8.setString(1,ser);
+                stmt8.setString(2,dt);
                 stmt8.executeUpdate();
                         
                 String r9 = "select max(moy),name,lastname from v1";                
@@ -81,13 +94,14 @@ public class StatisticsOfService extends javax.swing.JFrame {
                 
                 if(res.next()){
                     jTextField14.setText("name"+res.getString("name")+" "+res.getString("lastname"));   
-                    jTextField15.setText("stars : "+res.getString("max(moy)")+"/5");
+                    jTextField15.setText("stars : "+String.format( "%.2f",Double.parseDouble(res.getString("max(moy)")))+"/5");
                     System.out.println(res.getString("name"));
                 }
                 
-                String r10 = "create or replace view v2(nbr,name,lastname) as select count(*) ,e.name,e.lastname from contract as c,employee as e where c.id_employee=e.id_employee and service=? group by(e.id_employee)";                
+                String r10 = "create or replace view v2(nbr,name,lastname) as select count(*) ,e.name,e.lastname from contract as c,employee as e where c.id_employee=e.id_employee and service=? and c.date like ? group by(e.id_employee)";                
                 PreparedStatement stmt10 = con.prepareStatement(r10);  
                 stmt10.setString(1,ser);
+                stmt10.setString(2,dt);
                 stmt10.executeUpdate();
                 String r11 = "select max(nbr),name,lastname from v2";                
                 res=stat.executeQuery(r11);
@@ -99,7 +113,7 @@ public class StatisticsOfService extends javax.swing.JFrame {
                          DefaultTableModel model = (DefaultTableModel) tt.getModel();
                          model.setRowCount(0);
                          
-                String sql = "select id_employee, name, lastname from employee where service=?";
+                String sql = "select id_employee, name, lastname from employee where service=? ";
                 PreparedStatement stmt = con.prepareStatement(sql);  
                 stmt.setString(1,ser);
                 ResultSet rs = stmt.executeQuery();
@@ -109,9 +123,10 @@ public class StatisticsOfService extends javax.swing.JFrame {
                         String nm   = rs.getString("name");
                         String lt   = rs.getString("lastname");
                         String d="0",e="0",f="0";
-                        String sq2 = "select count(idc)  ,sum(priceC) from contract as c,employee as e where c.id_employee=e.id_employee and e.id_employee=?";
+                        String sq2 = "select count(idc)  ,sum(priceC) from contract as c,employee as e where c.id_employee=e.id_employee and e.id_employee=? and c.date like ?";
                         PreparedStatement stmt1 = con.prepareStatement(sq2);  
                         stmt1.setString(1,id);
+                        stmt1.setString(2,dt);
                         ResultSet rs2 = stmt1.executeQuery();
                         if(rs2.next()){
                             d=rs2.getString("count(idc)");
@@ -119,9 +134,10 @@ public class StatisticsOfService extends javax.swing.JFrame {
                         }
                         if(d.equals("0")){e="-";f="-";}
                         else{
-                            String sq3 = "select sum(stars)/count(c.id_employee) from opinion as o,contract as c where o.idC=c.idC and c.id_employee=?";
+                            String sq3 = "select sum(stars)/count(c.id_employee) from opinion as o,contract as c where o.idC=c.idC and c.id_employee=? and c.date like ?";
                             PreparedStatement stmt3 = con.prepareStatement(sq3);  
                             stmt3.setString(1,id);
+                            stmt3.setString(2,dt);
                             ResultSet rs3 = stmt3.executeQuery();
                             if(rs3.next()){
                                 f=rs3.getString("sum(stars)/count(c.id_employee)");
@@ -176,6 +192,11 @@ public class StatisticsOfService extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -200,9 +221,9 @@ public class StatisticsOfService extends javax.swing.JFrame {
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(174, 174, 174)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,28 +336,49 @@ public class StatisticsOfService extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel11))
-                .addGap(30, 30, 30))
+                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(19, 19, 19))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addComponent(jTextField14)
                 .addGap(1, 1, 1)
                 .addComponent(jTextField15)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        jLabel2.setText("Statistic in period");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2018", "2019", "2020" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Show");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Employees");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,19 +389,35 @@ public class StatisticsOfService extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -367,7 +425,7 @@ public class StatisticsOfService extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,10 +438,20 @@ public class StatisticsOfService extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -392,7 +460,27 @@ public class StatisticsOfService extends javax.swing.JFrame {
     private void ttMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ttMouseClicked
            
     }//GEN-LAST:event_ttMouseClicked
-  
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String selectedItem = (String) jComboBox1.getSelectedItem();
+        if("Year".equals(selectedItem)){selectedItem="" ;System.out.print("qskdjf");
+        StatisticsOfService sos = new StatisticsOfService(sr,"","");
+                        sos.setVisible(true);
+                        setVisible(false);}
+        else{
+            String selectedItem2 = (String) jComboBox2.getSelectedItem();
+        if("Month".equals(selectedItem2)){selectedItem2="" ;}
+        StatisticsOfService sos = new StatisticsOfService(sr,selectedItem,selectedItem2);
+                        sos.setVisible(true);
+                        setVisible(false);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -423,17 +511,22 @@ public class StatisticsOfService extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StatisticsOfService("78").setVisible(true);
+                new StatisticsOfService("1","","").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

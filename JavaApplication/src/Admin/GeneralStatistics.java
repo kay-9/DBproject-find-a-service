@@ -80,7 +80,7 @@ public class GeneralStatistics extends javax.swing.JFrame {
                 if(res.next()){
                     t8=res.getString("name")+" "+res.getString("lastname");
                     t9="service : "+res.getString("service");                    
-                    t10="stars : "+res.getString("max(moy)")+"/5";
+                    t10="stars : "+String.format( "%.2f",Double.parseDouble(res.getString("max(moy)")))+"/5";
                     jTextField8.setText(t8);
                    // jTextField9.setText(t9);
                     jTextField10.setText(t10);
@@ -144,7 +144,7 @@ public class GeneralStatistics extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/podium.png"))); // NOI18N
         jLabel8.setText("best employee");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -268,7 +268,7 @@ public class GeneralStatistics extends javax.swing.JFrame {
         jTextField6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jTextField6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/user.png"))); // NOI18N
         jLabel9.setText("best user");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -348,8 +348,8 @@ public class GeneralStatistics extends javax.swing.JFrame {
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -410,7 +410,7 @@ public class GeneralStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selectedItem = (String) jComboBox1.getSelectedItem();
         if(selectedItem=="choose one")return ;
-        StatisticsOfService sos = new StatisticsOfService(selectedItem);
+        StatisticsOfService sos = new StatisticsOfService(selectedItem,"","");
                         sos.setVisible(true);
                         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

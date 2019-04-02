@@ -326,7 +326,29 @@ public class FindService extends javax.swing.JFrame {
                     while(rs.next()){
                         pc   = rs.getString("serviceprice");                   
                     }
-            jTextArea1.setText("user " +username+" apply for for service : "+ser+"\nhe choose Employee with id="+idE+"\nthe price of service= "+pc);
+                String sq3 = "Select * from User where id_user=?"; 
+                PreparedStatement stmt3=con.prepareStatement(sq3);
+                    stmt3.setString(1,username);                    
+                    ResultSet rs3 = stmt3.executeQuery();  
+                    String a="",b="",c="",d="";
+                    if(rs3.next()){
+                        a   = rs3.getString("name");                   
+                        b   = rs3.getString("lastname");                   
+                        c   = rs3.getString("address");                   
+                        d   = rs3.getString("phone");                   
+                    }
+                String sq4 = "Select * from Employee where id_employee=?"; 
+                PreparedStatement stmt4=con.prepareStatement(sq4);
+                    stmt4.setString(1,idE);                    
+                    rs3 = stmt4.executeQuery();  
+                    String a2="",b2="",c2="",d2="";
+                    if(rs3.next()){
+                        a2   = rs3.getString("name");                   
+                        b2   = rs3.getString("lastname");                   
+                        c2   = rs3.getString("address");                   
+                        d2   = rs3.getString("phone");                   
+                    }
+            jTextArea1.setText("user " +username+":"+a+" "+b+"\nliving in "+c+"\nhis/her phone number is : "+d+"\napply for for service : "+ser+"\nhe choose Employee "+a2+" "+b2+" with id="+idE+"\nliving in "+c2+"\nhis/her phone number is : "+d2+"\nthe price of service= "+pc);
             jButton4.enable();
            
             }
