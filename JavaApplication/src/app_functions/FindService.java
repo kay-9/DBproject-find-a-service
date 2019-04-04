@@ -281,7 +281,7 @@ public class FindService extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
-                String sq2 = "Select * from Employee where service=?"; 
+                String sq2 = "Select * from Employee where service=? order by serviceprice"; 
                 PreparedStatement stmt2=con.prepareStatement(sq2);
                     stmt2.setString(1,selectedItem);                    
                     ResultSet rs = stmt2.executeQuery();  
@@ -302,10 +302,8 @@ public class FindService extends javax.swing.JFrame {
                         Object [] data = {id,nm,lt,ad,srp,ph};
                         model.addRow(data);
     
-               }
-                
+               }                
             }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -375,9 +373,31 @@ public class FindService extends javax.swing.JFrame {
                     System.out.println(dt);
                     System.out.println(todayWithZeroTime);
                     System.out.println("4444"+dt.compareTo(todayWithZeroTime));
-              /*  if(dt.compareTo(todayWithZeroTime)<=0) {
-                    JOptionPane.showMessageDialog(null,  "Failed");}
-                else{*/
+                    int nb=0;
+                    try {
+                     Class.forName("com.mysql.cj.jdbc.Driver");
+                        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
+                
+                        String sq4 = "Select count(*) from Contract where id_employee=? and id_user=? and date=?"; 
+                        PreparedStatement stmt=con.prepareStatement(sq4);
+                        stmt.setString(1,idE);    
+                        stmt.setString(3, dt);
+                        stmt.setString(2, username);
+                        
+                        ResultSet rs3 = stmt.executeQuery();  
+                        if(rs3.next()){
+                            String myString=rs3.getString(1);
+                            nb=Integer.parseInt(myString);
+                        }
+                        } 
+                        } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, e);
+                        }  
+                if(nb==1) {
+                    JOptionPane.showMessageDialog(null,  "Failed you already choose this contract");}
+                else if(dt.compareTo(todayWithZeroTime)<=0) {
+                    JOptionPane.showMessageDialog(null,  "Failed correct your date");}
+                else{
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
@@ -398,7 +418,8 @@ public class FindService extends javax.swing.JFrame {
                     stmt.setString(4, idE);
                     stmt.setString(5, pc);
                     stmt.setString(6, "ID: "+Integer.toString(num)+"\n"+jTextArea1.getText() );
-                int v = stmt.executeUpdate();                    
+               int v = stmt.executeUpdate();                    
+            
                     if (v==0) {
                         JOptionPane.showMessageDialog(null,  "Failed");
                     } else {
@@ -408,7 +429,7 @@ public class FindService extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }  
-   // }
+    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
