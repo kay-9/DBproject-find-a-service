@@ -61,6 +61,11 @@ public class Givefeedback extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
+    Givefeedback() {
+                initComponents();
+
+    }
     
 
     /**

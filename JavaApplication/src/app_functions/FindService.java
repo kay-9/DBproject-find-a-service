@@ -28,6 +28,9 @@ public class FindService extends javax.swing.JFrame {
     /**
      * Creates new form FindService
      */
+    public FindService(){
+            initComponents();
+};
     public FindService(String ch) {
         username=ch;
         initComponents();

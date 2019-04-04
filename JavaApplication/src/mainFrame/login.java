@@ -183,11 +183,11 @@ public class login extends javax.swing.JFrame {
                 stmt.setString(2, password.getText());
                 ResultSet rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "username and password existe");
+                if (rs.next()) {                     
                     
-                    setVisible(false);
-
+                    UserPage u = new UserPage(name.getText());
+                     u.setVisible(true);
+                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "username and password  do not existe");
                     name.setText("");
