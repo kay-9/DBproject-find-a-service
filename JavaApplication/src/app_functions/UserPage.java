@@ -309,8 +309,8 @@ public class UserPage extends javax.swing.JFrame {
     private void fsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fsMouseClicked
         // TODO add your handling code here:
 
-         FindService fs = new FindService(this.id);
-                    fs.setVisible(true);
+         FindService ss = new FindService(this.id);
+                    ss.setVisible(true);
                     setVisible(false);
         
        
@@ -319,14 +319,14 @@ public class UserPage extends javax.swing.JFrame {
 
     private void vcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vcMouseClicked
         // TODO add your handling code here:
-            ViewC vc = new ViewC();
+            ViewC vc = new ViewC(this.id);
         vc.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_vcMouseClicked
 
     private void vciMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vciMouseClicked
         // TODO add your handling code here:
-        ViewC vc = new ViewC();
+        ViewC vc = new ViewC(this.id);
         vc.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_vciMouseClicked

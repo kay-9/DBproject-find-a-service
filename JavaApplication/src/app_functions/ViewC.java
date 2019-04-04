@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,7 +27,7 @@ public class ViewC extends javax.swing.JFrame {
     public String id;
     public void display(String id){
             
-
+/*
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
@@ -52,7 +53,7 @@ public class ViewC extends javax.swing.JFrame {
             }     
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-        }   
+        }   */
     }
     
     
@@ -67,6 +68,7 @@ public class ViewC extends javax.swing.JFrame {
 
         initComponents();
         this.id=id;
+       lab.setText(id+" CONTRACTS");
         
     }
 
@@ -79,14 +81,19 @@ public class ViewC extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tt = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        lab = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        fd = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        rr = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        text1 = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        text2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -95,38 +102,10 @@ public class ViewC extends javax.swing.JFrame {
             }
         });
 
-        tt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ContractID", "UserID", "Date", "EmployeeID", "Price", "Description"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tt.setColumnSelectionAllowed(true);
-        tt.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tt);
-        tt.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tt.getColumnModel().getColumnCount() > 0) {
-            tt.getColumnModel().getColumn(0).setResizable(false);
-            tt.getColumnModel().getColumn(1).setResizable(false);
-            tt.getColumnModel().getColumn(2).setResizable(false);
-            tt.getColumnModel().getColumn(4).setResizable(false);
-            tt.getColumnModel().getColumn(5).setResizable(false);
-        }
-
         jPanel6.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel24.setText("MY CONTRACTS");
+        lab.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lab.setText("MY CONTRACTS");
 
         jLabel1.setFont(new java.awt.Font("Snap ITC", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 0));
@@ -147,11 +126,11 @@ public class ViewC extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(141, 141, 141)
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lab)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(22, 22, 22))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,32 +140,63 @@ public class ViewC extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app_functions/cancel.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+        fd.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        fd.setText("Your FeedBack :");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Contracts :");
+
+        jButton1.setText("show");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Cancel Contract");
+        rr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "choose" }));
+        rr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rrActionPerformed(evt);
+            }
+        });
+
+        text1.setColumns(20);
+        text1.setRows(5);
+        jScrollPane1.setViewportView(text1);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("Contract Description :");
+
+        text2.setColumns(20);
+        text2.setRows(5);
+        jScrollPane2.setViewportView(text2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton1))
+                            .addComponent(fd)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -194,14 +204,19 @@ public class ViewC extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton1)
+                    .addComponent(rr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(fd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -209,15 +224,29 @@ public class ViewC extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        this.display(id);
-        
+               
+       try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con;
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "");
+                              
+            
+                     String rq = "Select idC from contract where id_user=?";  
+                    PreparedStatement stmt2=con.prepareStatement(rq);
+                    stmt2.setString(1,this.id);                    
+                    ResultSet res = stmt2.executeQuery(); 
+                    
+                while(res.next()){
+                                     
+                    String xx=res.getString(1);
+                    rr.addItem(xx);
+                }
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_formWindowOpened
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
-                JOptionPane.showMessageDialog(null, "Not supported Yet");
-
-    }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
@@ -227,6 +256,67 @@ public class ViewC extends javax.swing.JFrame {
               
         
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+       String selectedItem = (String) rr.getSelectedItem();
+       
+       text1.setEditable(false);
+       text1.setLineWrap(true);
+       
+        if("choose".equals(selectedItem))return ;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+           Connection con; 
+           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "");
+                
+              String rq = "Select description from contract where idC=?";  
+                    PreparedStatement stmt2=con.prepareStatement(rq);
+                    
+                    String number = selectedItem;
+                    int result = Integer.parseInt(number);			
+	
+                    stmt2.setInt(1,result);                    
+                    ResultSet rs = stmt2.executeQuery(); 
+             
+                    while(rs.next()){
+         
+                    text1.setText(rs.getString("description"));
+            
+                    }
+                    
+                    String rq1 = "Select stars,comment from opinion where idC=?";  
+                    
+                    stmt2=con.prepareStatement(rq1);
+                    
+                    
+                    stmt2.setInt(1,result);                    
+              
+                    rs = stmt2.executeQuery(); 
+
+                    String feed="NONE";
+                    while(rs.next()){
+                         feed=rs.getString("comment")
+                                +"\n-------------------------\n"
+                                +" Stars : "+rs.getString("stars");
+                        
+                    }
+                    text2.setText(feed);
+             
+                     
+                    
+            }
+            catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+          
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,6 +347,7 @@ public class ViewC extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ViewC().setVisible(true);
             }
@@ -264,13 +355,18 @@ public class ViewC extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel fd;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tt;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lab;
+    private javax.swing.JComboBox<String> rr;
+    private javax.swing.JTextArea text1;
+    private javax.swing.JTextArea text2;
     // End of variables declaration//GEN-END:variables
 }

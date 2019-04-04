@@ -30,7 +30,7 @@ public class Givefeedback extends javax.swing.JFrame {
     
     public Givefeedback(String ch) {
         usr=ch;
-        
+        this.id=ch;
         initComponents();
         ButtonGroup group = new ButtonGroup();
         group.add(jRadioButton1);

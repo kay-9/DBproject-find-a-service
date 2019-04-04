@@ -33,7 +33,7 @@ public class FindService extends javax.swing.JFrame {
             initComponents();
 };
     public FindService(String ch) {
-        
+        this.username=ch;
         initComponents();
             jButton2.disable();
             jButton4.disable();
@@ -48,7 +48,7 @@ public class FindService extends javax.swing.JFrame {
                 ResultSet rest=stat.executeQuery(rq);
                 while(rest.next()){
                     String xx=rest.getString(1);
-                    jComboBox1.addItem(xx);
+                    combo.addItem(xx);
                 }
             }
 
@@ -71,7 +71,7 @@ public class FindService extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tt = new javax.swing.JTable();
@@ -135,7 +135,12 @@ public class FindService extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app_functions/one.png"))); // NOI18N
         jLabel1.setText("Choose any service you want");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "choose one" }));
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "choose one" }));
+        combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Show Employees");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +168,11 @@ public class FindService extends javax.swing.JFrame {
         jLabel2.setText("choose the id of the emmployee");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "choose one" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("show detais");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +236,7 @@ public class FindService extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1))
@@ -234,7 +244,7 @@ public class FindService extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -243,18 +253,18 @@ public class FindService extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2)))
+                        .addComponent(jButton4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -268,7 +278,7 @@ public class FindService extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,11 +292,11 @@ public class FindService extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -295,7 +305,7 @@ public class FindService extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       String selectedItem = (String) jComboBox1.getSelectedItem();
+       String selectedItem = (String) combo.getSelectedItem();
        
         if(selectedItem=="choose one")return ;
         try {
@@ -336,7 +346,7 @@ public class FindService extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String ser = (String) jComboBox1.getSelectedItem();
+        String ser = (String) combo.getSelectedItem();
          idE = (String) jComboBox2.getSelectedItem();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -390,9 +400,7 @@ public class FindService extends javax.swing.JFrame {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     Date today = new Date();
                     String todayWithZeroTime = (formatter.format(today));
-                    System.out.println(dt);
-                    System.out.println(todayWithZeroTime);
-                    System.out.println("4444"+dt.compareTo(todayWithZeroTime));
+                 
                     int nb=0;
                     try {
                      Class.forName("com.mysql.cj.jdbc.Driver");
@@ -438,14 +446,16 @@ public class FindService extends javax.swing.JFrame {
                     stmt.setString(4, idE);
                     stmt.setString(5, pc);
                     stmt.setString(6, "ID: "+Integer.toString(num)+"\n"+jTextArea1.getText() );
+                    System.out.println(username);
                int v = stmt.executeUpdate();                    
             
                     if (v==0) {
                         JOptionPane.showMessageDialog(null,  "Failed");
                     } else {
                         JOptionPane.showMessageDialog(null, "confirmed");}
-            }
-
+            
+            jTextArea1.setText("");
+            }    
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }  
@@ -458,6 +468,14 @@ public class FindService extends javax.swing.JFrame {
         u.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -495,10 +513,10 @@ public class FindService extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
