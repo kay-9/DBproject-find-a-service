@@ -95,7 +95,7 @@ public class UserPage extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        fsi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/contract.png"))); // NOI18N
+        fsi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/binoculars.png"))); // NOI18N
         fsi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fsiMouseClicked(evt);
