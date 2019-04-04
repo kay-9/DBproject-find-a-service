@@ -343,8 +343,8 @@ public class UserFNs extends javax.swing.JFrame {
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
                 // TODO add your handling code here:
                 AdminPage ad = new AdminPage();
-                this.setVisible(true);
-                ad.setVisible(false);
+                this.setVisible(false);
+                ad.setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     /**

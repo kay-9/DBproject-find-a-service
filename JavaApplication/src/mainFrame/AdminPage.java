@@ -119,6 +119,11 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel5.setText("Statistics");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin/icons8-statistics-100.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -259,6 +264,14 @@ public class AdminPage extends javax.swing.JFrame {
         user_interface.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        GeneralStatistics g =new GeneralStatistics();
+        g.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

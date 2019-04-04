@@ -30,7 +30,7 @@ public class UserPage extends javax.swing.JFrame {
     public UserPage(String id ) {
         initComponents();
         this.id=id;
-       dash.setText("Dashboard :"+this.id); 
+       dash.setText(this.id+" Dashboard :"); 
        
     }
 
@@ -294,14 +294,14 @@ public class UserPage extends javax.swing.JFrame {
 
     private void fsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fsiMouseClicked
                 // TODO add your handling code here:
-                    FindService fs = new FindService();
+                    FindService fs = new FindService(this.id);
                     fs.setVisible(true);
                     setVisible(false);
     }//GEN-LAST:event_fsiMouseClicked
 
     private void fdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fdMouseClicked
         // TODO add your handling code here:
-        Givefeedback g = new Givefeedback();
+        Givefeedback g = new Givefeedback(this.id);
         g.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_fdMouseClicked
@@ -309,7 +309,7 @@ public class UserPage extends javax.swing.JFrame {
     private void fsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fsMouseClicked
         // TODO add your handling code here:
 
-         FindService fs = new FindService();
+         FindService fs = new FindService(this.id);
                     fs.setVisible(true);
                     setVisible(false);
         
@@ -333,7 +333,7 @@ public class UserPage extends javax.swing.JFrame {
 
     private void fdiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fdiMouseClicked
         // TODO add your handling code here:
-         Givefeedback g = new Givefeedback();
+         Givefeedback g = new Givefeedback(this.id);
         g.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_fdiMouseClicked
