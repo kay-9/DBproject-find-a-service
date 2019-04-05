@@ -38,7 +38,7 @@ public class FindService extends javax.swing.JFrame {
             jButton2.disable();
             jButton4.disable();
             jTextArea1.disable();
-            jLabel20.setText("Hello MR "+ch+" apply for service here");
+            jLabel20.setText("Hello "+ch+" apply for service here");
        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
@@ -384,7 +384,7 @@ public class FindService extends javax.swing.JFrame {
        //if(jTextField2.length()==1)jTextField2="0"+jTextField2;
        //if(jTextField1.length()==1)jTextField1="0"+jTextField1;
         dt=jTextField1+"-"+jTextField2+"-"+jTextField3;
-            jTextArea1.setText("Date : "+dt+"\nuser " +username+":"+a+" "+b+"\nliving in "+c+"\nhis/her phone number is : "+d+"\napply for for service : "+ser+"\nhe choose Employee "+a2+" "+b2+" with id="+idE+"\nliving in "+c2+"\nhis/her phone number is : "+d2+"\nthe price of service= "+pc);
+            jTextArea1.setText("Date : "+dt+"\nuser :"+a+" "+b+"\nliving in "+c+"\nhis/her phone number is : "+d+"\napply for for service : "+ser+"\nhe choose Employee "+a2+" "+b2+" with id="+idE+"\nliving in "+c2+"\nhis/her phone number is : "+d2+"\nthe price of service= "+pc);
             jButton4.enable();
            
             }
@@ -422,20 +422,24 @@ public class FindService extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, e);
                         }  
                 if(nb==1) {
-                    JOptionPane.showMessageDialog(null,  "Failed you already choose this contract");}
+                    JOptionPane.showMessageDialog(null,  "Failed you already choose this contract");
+                    jTextArea1.setText("");
+                }
                 else if(dt.compareTo(todayWithZeroTime)<=0) {
-                    JOptionPane.showMessageDialog(null,  "Failed correct your date");}
+                    JOptionPane.showMessageDialog(null,  "Failed correct your date");
+                    jTextArea1.setText("");
+                }
                 else{
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
                 
-             String r9 = "select max(idc) from contract";                
+             String r9 = "select count(*) from contract";                
                 Statement stat = con.createStatement();
                 ResultSet res=stat.executeQuery(r9);                
                 int num=0;
                 if(res.next()){
-                    num = 1+Integer.parseInt(res.getString("max(idc)"));
+                    num = 1+Integer.parseInt(res.getString("count(*)"));
                 }
                // System.out.println(num);
                 String sql = "insert contract values(?,?,?,?,?,?)";

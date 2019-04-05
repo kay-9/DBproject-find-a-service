@@ -48,12 +48,14 @@ public class Givefeedback extends javax.swing.JFrame {
          try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdb?useTimezone=true&serverTimezone=UTC", "root", "")) {
-             String rq = "select idC from contract where id_user= ? and idC not in (select idC from opinion)";                
+             String rq = "select idC,date from contract where id_user= ? and idC not in (select idC from opinion)";                
                 PreparedStatement stmt2=con.prepareStatement(rq);
                 stmt2.setString(1,usr);
                 ResultSet rest=stmt2.executeQuery();  
                 while(rest.next()){
                     String xx=rest.getString(1);
+                    String xx2=rest.getString(2);
+                    if(xx2.compareTo(todayWithZeroTime)<0)
                     jComboBox1.addItem(xx);
                 }                
             }  

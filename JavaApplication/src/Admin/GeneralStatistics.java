@@ -5,14 +5,14 @@
  */
 package Admin;
 
-import app_functions.login;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-
+import mainFrame.*;
 /**
  *
  * @author 
@@ -55,15 +55,15 @@ public class GeneralStatistics extends javax.swing.JFrame {
                     jTextField5.setText(res.getString("count(*)")+" Comments");
                 
                 
-                String r7 = "Select min(priceC) from Contract";                
+                String r7 = "Select min(serviceprice) from Employee";                
                 res=stat.executeQuery(r7);
                 String t6="price from : ";
                 if(res.next())
-                    t6+=res.getString("min(priceC)")+" to ";
-                String r6 = "Select max(priceC) from Contract";                
+                    t6+=res.getString("min(serviceprice)")+" to ";
+                String r6 = "Select  max(serviceprice) from Employee";                
                 res=stat.executeQuery(r6);
                 if(res.next())
-                    t6+=res.getString("max(priceC)");
+                    t6+=res.getString("max(serviceprice)");
                    jTextField6.setText(t6);
                 
                 String r12 = "Select sum(priceC) from Contract";                

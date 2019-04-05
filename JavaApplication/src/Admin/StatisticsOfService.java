@@ -57,21 +57,21 @@ public class StatisticsOfService extends javax.swing.JFrame {
                     jTextField3.setText(res.getString("count(*)")+" Contracts");
                 
                
-                String r7 = "Select min(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
+                String r7 = "Select min(serviceprice) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r7);
                 stmt2.setString(1,ser);
                 stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 String t6="price from : ";
                 if(res.next())
-                    t6+=res.getString("min(priceC)")+" to ";
-                String r6 = "Select max(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
+                    t6+=res.getString("min(serviceprice)")+" to ";
+                String r6 = "Select max(serviceprice) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
                 stmt2=con.prepareStatement(r6);
                 stmt2.setString(1,ser);
                 stmt2.setString(2,dt);
                 res=stmt2.executeQuery();        
                 if(res.next())
-                    t6+=res.getString("max(priceC)");
+                    t6+=res.getString("max(serviceprice)");
                    jTextField6.setText(t6);
                 
                 String r12 = "Select sum(priceC) from Contract as c,Employee as e where c.id_employee=e.id_employee and e.service=? and c.date like ?";      
